@@ -1,1 +1,130 @@
-%test
+\documentclass[a4paper,11.5pt]{article}
+\usepackage[textwidth=170mm, textheight=230mm, inner=20mm, top=20mm, bottom=30mm]{geometry}
+\usepackage[normalem]{ulem}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\PassOptionsToPackage{defaults=hu-min}{magyar.ldf}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.10}
+\usepgfplotslibrary{fillbetween}
+\usepackage[magyar]{babel}
+\usepackage{amsmath, amsthm,amssymb,paralist,array, ellipsis, graphicx, float, bigints,mathtools}
+
+\usepackage{tikz} %the core package used for figures
+\usetikzlibrary{positioning} %options for TikZ
+
+
+\title{Anal4 1.ea}
+\date{2017.09.14.}
+\author{Mészáros Lili}
+
+\begin{document}
+
+    \pagenumbering{gobble}
+    \maketitle
+    \setlength{\unitlength}{5cm}
+
+\begin{itemize}
+    \item Feltételes szélsőérték
+    \item Implicit függvény
+    \item Inverz függvény
+\end{itemize}
+\section{Emlékeztető}
+\subsection{}
+    $0<n\in\mathbb{N}, f\in\mathbb{R}^{n}\rightarrow\mathbb{R}, a\in\mathcal{D}_{f}$. Az $f$-nek $a$-ban lokális minimuma(maximuma) van, ha
+    \begin{equation*}
+        \exists K(a): f(x)\geq f(a)\quad \big(x\in K(a)\big)
+    \end{equation*}
+
+    \subsection{}
+    Tegyük fel: $f\in D\{a\}$ és $f$-nek az $a$-ban lokális szélsőértéke van.
+
+Ekkor: $f'(a)=grad f(a)=0$.
+
+    Megjegyzés:
+    \begin{itemize}
+        \item $f\in D\{a\}\Rightarrow a$ belső pontja $\mathcal{D}_{f}$-nek ($a\in int\mathcal{D}_{f}$), azaz
+        \begin{equation*}
+            \exists K(a): K(a)\subset\mathcal{D}_{f}
+        \end{equation*}
+        \item lehet nem belső pontban deriválni, de akkor nem garantált a tétel helyessége
+    \end{itemize}
+    \subsection{Másodrendű elégséges feltétel}
+    Tegyük fel: $f\in D^2\{a\}$. Legyen $f''(a):=(\partial_{ij}f(a))_{i,j=1}^{n}\in\mathbb{R}^{n\times n}$
+
+    $Q_a f(x):=\langle f''(a)\cdot x,x\rangle\enskip(x\in\mathbb{R}^{n})$ (kvadratikus alak)
+
+    Továbbá: $f'(a)=0$ és $Q_a f(x)>0\enskip (0\neq x\in\mathbb{R}^{n})$
+
+    Ekkor: $f$-nek $a$-ban lokális minimuma(maximuma) van.
+    \subsection{Másodrendű szükséges feltétel}
+    Tegyük fel: $f\in D^2\{a\}$ és $f$-nek $a$-ban lokális minimuma(maximuma) van.
+
+    Ekkor: $f'(a)=0$ és $Q_a f(x)\geq 0\enskip (x\in\mathbb{R}^{n})$
+
+\section{Feltételes szélsőérték}
+\subsection{Bevezető példa}
+    Tekintsük azokat a téglalapokat, amelyeknek a kerülete 1. Melyiknek lesz a legnagyobb a területe?
+
+    \begin{tikzpicture}
+        \node (rec) [minimum width = 5cm, minimum height = 3cm, rectangle, draw = black]{};
+        \node [left = 1mm of rec] {x};
+        \node [right = 1mm of rec] {x};
+        \node [below = 1mm of rec] {y};
+        \node [above = 1mm of rec] {y};
+\end{tikzpicture}
+
+    Legyen: $\{g=0\}:=\{(x,y)\in\mathcal{D}_{g}:g(x,y)=0\}$ ($g$ nullahalmaza)
+    Feladat: ($f$ szélsőértéknek keresése azon feltételek mellett, hogy a $g$ nulla) $f|_{\{g=0\}}$ függvény szélsőértékének keresése
+\subsection{}
+Legyen: $0<n,m\in\mathbb{N},\emptyset\neq\mathcal{A}\subset\mathbb{R}^{n}$ nyílt halmaz, $f:\mathcal{A}\rightarrow\mathbb{R}$ és $g=(g_1 ,\ldots ,g_m ):\mathcal{A}\rightarrow\mathbb{R}^{m}, \{g=0\}$ halmaz nem üres, $c\in\{g=0\}, f|_{\{g=0\}}$-nak $c$-ben lokális szélsőértéke van.
+Ekkor $f$-nek a $c$-ben feltételes lokális szélsőértéke van (a $g=0$ feltételre nézve).
+\subsection{Elsőrendű szükséges feltétel}
+Tegyük fel: $f\in D, g\in C^1$ (folytonosan diffható)
+$c\in\{g=0\}$ és $grad g_1 (c),\ldots ,grad g_m (c)$ vektorok lineárisan függetlenek és $f$-nek $c$-ben feltételes szélsőértéke van (a $g=0$ feltételre nézve).
+
+Ekkor: $\exists\lambda =(\lambda_1 ,\ldots ,\lambda_m )\in\mathbb{R}^{m}:f'_{\lambda} (c)=0$, ahol $f\lambda :=f+\sum_{i=1}^{m}\lambda_i\cdot g_i$
+Megjegyzés:
+\begin{enumerate}
+    \item $\Rightarrow m\leq n$
+    \item $m=n$ triviális, ugyanis a gradiensek bázist alkotnak $\Rightarrow$ bármely vektor előáll lineáris kombinációjukként.
+\end{enumerate}
+\subsection{Tétel}
+Tegyük fel: $f,g\in C^2 ,c\in\{g=0\}, grad g_1 (c),\ldots ,grad g_m (c)$ lineárisan függetlenek, $\lambda =(\lambda_{1} ,\ldots ,\lambda_{m} )\in\mathbb{R}^{m}, f'_{\lambda}(c)=0$ és $Q_c f_{\lambda}(x)>0\enskip (0\neq x\in\mathcal{B})$, ahol
+    \begin{equation*}
+        \mathcal{B}:=\{z\in\mathbb{R}^{n}:g'(c)\cdot z=0\}
+    \end{equation*}
+    Ekkor: $f$-nek $c$-ben feltételes lokális minimuma(maximuma) van.
+    Megjegyzés:
+    \begin{enumerate}
+        \item A $Q_c f_{\lambda}$ feltételesen pozitív(negatív) definit.
+        \item Speciális eset: $m=1: gradg_1 (c)=gradg(c)$ "lineárisan független" $\Leftrightarrow grad g(c)\neq 0$
+        Ekkor $\mathcal{B}=\{z\in\mathbb{R}^{n}:g'(c)\cdot z=0\}=\{z\in\mathbb{R}^{n}:\langle gradg(c),z\rangle =0\}\quad (z\perp gradg(c))$
+        pl.: ábra
+    \end{enumerate}
+    \subsection{Tétel: Másodrendű szükséges feltétel}
+    Tegyük fel: $f,g\in C^2 ,c\in\{g=0\}, grad g_1 (c),\ldots ,grad g_m (c)$ lineárisan függetlenek, $f$-nek $c$-ben feltételes lokális minimuma(maximuma) van.
+
+    Ekkor: $\exists\lambda =(\lambda_1 ,\ldots ,\lambda_m )\in\mathbb{R}^{m}, f'_{\lambda}(c)=0$ és $Q_c f_{\lambda}(x)\geq 0\enskip (0\neq x\in\mathcal{B})$
+
+    \section{Implicit függvény}
+    \subsection{Miért egyszerű a mintapélda?}
+    $(x,y)\in\{g=0\}\Leftrightarrow y=\frac{1}{2}-x$
+
+    Legyen $\varphi (x)=\frac{1}{2}-x\enskip (0<x<\frac{1}{2})$
+    Ekkor $(x,y)\in\{g=0\}\Leftrightarrow g(x,\varphi (x))=0$, azaz $\{g=0\}=\{(x,\varphi (x))\in\mathbb{R}^{2}: x\in(0,\frac{1}{2})\}=graf\varphi$
+    
+    Legyen $\phi (x)=f(x,\varphi (x))\enskip (x\in (0,\frac{1}{2})\Rightarrow f|_{\{g=0\}}$ vizsgálata ekvivalens $\phi$ vizsgálatával, ahol $\mathcal{D}_{\phi}$ nyílt (és $\phi\in D$).
+    
+    \subsection{}
+    Tegyük fel: $0<p,q\in\mathbb{N},\emptyset\neq U\subset\mathbb{R}^{p},\emptyset\neq V\subset\mathbb{R}^{q}, U, V$ nyílt, $g:U\times V\rightarrow\mathbb{R}^{q}, (a,b)\in\{g=0\}$ és $\exists K(a), K(b):\forall x\in K(a):\exists !y_x\in K(b):g(x,y_x )=0$.
+    
+    Legyen: $\varphi (x):=y_x\quad (x\in K(a))$
+    
+    Ekkor: $\varphi$ a $g=0$ által meghatározott implicit függvény.
+    
+    Megjegyzés:
+    \begin{enumerate}
+        \item tehát: $\{g=0\}\cap (K(a)\times K(b))=graf\varphi$
+    \end{enumerate}
+\end{document}
